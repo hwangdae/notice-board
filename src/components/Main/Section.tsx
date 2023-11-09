@@ -11,7 +11,6 @@ const Section = () => {
             <S.SectionInner>
                 <SideBar />
                 <Post />
-
             </S.SectionInner>
         </S.SectionWrap>
 
@@ -22,11 +21,12 @@ export default Section
 
 const S = {
     SectionWrap: styled.div`
-        margin-top: 20px;
+        padding-top: 20px;
     `,
     SectionInner: styled(FlexBoxCenter)`
        width : 1200px;
        margin: 0 auto;
+       gap: 20px;
 
     `
 }
