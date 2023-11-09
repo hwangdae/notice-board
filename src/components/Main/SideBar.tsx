@@ -1,12 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 const SideBar = () => {
+  const navigate = useNavigate()
   return (
     <S.SideBarWrap>
       <S.SideBarInner>
         <S.WriteButtonWrap>
-          <button>글 작성하기</button>
+          <button onClick={()=>navigate("/WritePost")}>글 작성하기</button>
         </S.WriteButtonWrap>
         <S.CategoryWrap>
           <S.CategoryInner>

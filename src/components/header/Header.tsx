@@ -32,7 +32,7 @@ const Header = () => {
     <S.HeaderWrap>
       <S.HeaderInner>
         <S.LogoContainer>
-          <S.Logo>NoticeBord</S.Logo>
+          <S.Logo onClick={()=>navigate('/')}>NoticeBord</S.Logo>
         </S.LogoContainer>
         <S.LogContainer>
           {user !== null ? (
