@@ -23,10 +23,10 @@ const S = {
     SectionWrap: styled.div`
         padding-top: 20px;
     `,
-    SectionInner: styled(FlexBoxCenter)`
+    SectionInner: styled.div`
        width : 1200px;
+       display: flex;
+       justify-content: space-between;
        margin: 0 auto;
-       gap: 20px;
-
     `
 }

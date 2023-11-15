@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAtom } from 'jotai/react'
 import styled from 'styled-components'
+import { categoryItem } from '../../globalState/Jotai'
+
+const category = ["All Posts","Category One", "Category Two", "Category Three", "Category Four"]
 
 const SideBar = () => {
+
+  const [, setCategorySelect] = useAtom(categoryItem)
+
   const navigate = useNavigate()
+
+  const categoryButtonHandler = (item: string) => {
+    setCategorySelect(item)
+  }
   return (
     <S.SideBarWrap>
       <S.SideBarInner>
         <S.WriteButtonWrap>
-          <button onClick={()=>navigate("/WritePost")}>글 작성하기</button>
+          <button onClick={() => navigate("/WritePost")}>글 작성하기</button>
         </S.WriteButtonWrap>
         <S.CategoryWrap>
-          <S.CategoryInner>
-            <li>Category one</li>
-            <li>Category two</li>
-            <li>Category three</li>
-            <li>Category four</li>
+          <S.CategoryInner>{category.map((item) => {
+            return <li><button onClick={() => categoryButtonHandler(item)}>{item}</button></li>
+          })}
           </S.CategoryInner>
         </S.CategoryWrap>
       </S.SideBarInner>
@@ -46,22 +55,30 @@ const S = {
     }
     margin-bottom: 15px;
   `,
-  CategoryWrap:styled.div`
+  CategoryWrap: styled.div`
     
   `,
-  CategoryInner:styled.ul`
-    background-color: #ececec;
+  CategoryInner: styled.ul`
+    background-color: #8f8989;
     border-radius: 4px;
     padding: 8px 5px;
     li{
-      cursor: pointer;
       font-size: 16px;
       letter-spacing: -.5px;
-      padding: 10px 4px;
-      border-radius: 4px;
-      &:hover{
+
+ 
+      
+      button{
+        cursor: pointer;
+        padding: 10px 4px;
+        width: 100%;
+        border-radius: 4px;
+        border: none;
+        background: none;
+        &:hover{
         background-color: #000000;
         color: white;
+      }
       }
     }
   `

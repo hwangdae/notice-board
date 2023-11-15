@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../firebase';
+import { getAuth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
+// import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
 const Join = () => {
@@ -9,14 +9,8 @@ const Join = () => {
     const [checkPassword, setCheckPassword] = useState("")
 
     const navigate = useNavigate()
-
-
+    const auth = getAuth()
     console.log(auth)
-
-    const emailValidation = async() => {
-        
-    }
-
     const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)
     }
@@ -25,6 +19,21 @@ const Join = () => {
     }
     const checkPasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setCheckPassword(e.target.value)
+    }
+    const emailValidationButton = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try {
+            const validationEmail = await fetchSignInMethodsForEmail(auth,email)
+            if (validationEmail && validationEmail.length > 0) {
+                alert("이미 사용중인 이메일")
+            } else {
+                alert("사용가능 이메일")
+            }
+            console.log(validationEmail)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     const joinButtonHandler = async (e: React.MouseEvent) => {
         e.preventDefault()
@@ -44,13 +53,12 @@ const Join = () => {
 
     return (
         <>
-
-            <p>아이디<input value={email} onChange={emailHandler}></input><button>중복확인</button></p>
-            <p>비밀번호<input type='password' value={password} onChange={passwordHandler}></input></p>
-            <p>비밀번호 확인<input type='password' value={checkPassword} onChange={checkPasswordHandler}></input></p>
+            <form onSubmit={emailValidationButton}>
+                <label>아이디</label><input type='email' value={email} onChange={emailHandler}></input><button>중복확인</button>
+            </form>
+            <label>비밀번호</label><input type='password' value={password} onChange={passwordHandler}></input>
+            <label>비밀번호 확인</label><input type='password' value={checkPassword} onChange={checkPasswordHandler}></input>
             <button onClick={joinButtonHandler}>회원가입 완료</button>
-
-
         </>
     )
 }
