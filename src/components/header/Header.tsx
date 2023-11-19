@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Join from "../../pages/Join";
@@ -11,11 +11,17 @@ import { FlexBoxCenter } from "../../styles/StyleBox";
 
 const Header = () => {
   const navigate = useNavigate();
+
   const user = auth.currentUser;
+  const userToken = localStorage.getItem("user")
+
+ 
+            
+
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
-      console.log(uid);
     } else {
     }
   });
@@ -23,6 +29,7 @@ const Header = () => {
   const logoutButtonHandler = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem("user")
       alert("로그아웃");
     } catch (error) {
       alert(error);
@@ -35,7 +42,7 @@ const Header = () => {
           <S.Logo onClick={()=>navigate('/')}>NoticeBord</S.Logo>
         </S.LogoContainer>
         <S.LogContainer>
-          {user !== null ? (
+          {userToken ? (
             <>
               <button onClick={logoutButtonHandler}>로그아웃</button>
               <button onClick={() => navigate("/Join")}>마이페이지</button>

@@ -7,9 +7,11 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <S.Container>
+      <S.ContainerWrap>
+        <S.ContainerInner>
         <Outlet />
-      </S.Container>
+        </S.ContainerInner>
+      </S.ContainerWrap>
     </>
   );
 };
@@ -17,7 +19,11 @@ const Layout = () => {
 export default Layout;
 
 const S = {
-  Container: styled.div`
+  ContainerWrap: styled.div`
     background-color: #ededed;
+  `,
+  ContainerInner:styled.div`
+    width: 1200px;
+    margin: 0 auto;
   `
 }

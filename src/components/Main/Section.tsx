@@ -24,9 +24,7 @@ const S = {
         padding-top: 20px;
     `,
     SectionInner: styled.div`
-       width : 1200px;
        display: flex;
        justify-content: space-between;
-       margin: 0 auto;
     `
 }

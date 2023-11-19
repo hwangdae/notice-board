@@ -18,6 +18,10 @@ const Login = () => {
         e.preventDefault()
         try{
             await signInWithEmailAndPassword(auth, email, password)
+            const userToken = await auth.currentUser?.getIdToken(true);
+            
+            localStorage.setItem("user",userToken!)
+            
             navigate("/")
         }catch(error){
             console.log(error)
